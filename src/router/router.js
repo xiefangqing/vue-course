@@ -12,6 +12,7 @@ export default [
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
+    // 懒加载，只有访问这个路径的时候才加载组件
     component: () => import(/* webpackChunkName: "about" */ '@/views/About.vue')
   },
   {
@@ -41,7 +42,6 @@ export default [
   },
   {
     path: '/main',
-    // 重定向
     // redirect: '/'
     // redirect: {
     //   name: 'home'

@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <button @click="handleClick('bakc')">返回上一页</button>
+    <button @click="handleClick('back')">返回上一页</button>
     <button @click="handleClick('push')">跳转到parent</button>
     <button @click="handleClick('replace')">替换到parent</button>
   </div>
