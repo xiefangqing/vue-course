@@ -20,7 +20,7 @@ export default {
     }
   },
   watch: {
-    '$route' (to) {
+    $route (to, from) {
       to.query && to.query.transitionName && (this.routerTransition = to.query.transitionName)
     }
   }
