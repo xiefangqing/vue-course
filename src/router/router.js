@@ -4,7 +4,21 @@ export default [
     path: '/',
     alias: '/home_page',
     name: 'home',
-    component: Home
+    component: Home,
+    // 返回对象
+    props: route => ({
+      food: route.query.food
+    }),
+    beforeEnter: (to, from, next) => {
+      // if (from.name === 'about') alert('这是从about来的')
+      // else alert('不是从about来的')
+      next()
+    }
+  },
+  {
+    path: '/login',
+    name: 'login',
+    component: () => import('@/views/login.vue')
   },
   {
     path: '/about',
@@ -13,12 +27,19 @@ export default [
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
     // 懒加载，只有访问这个路径的时候才加载组件
-    component: () => import(/* webpackChunkName: "about" */ '@/views/About.vue')
+    component: () => import(/* webpackChunkName: "about" */ '@/views/About.vue'),
+    props: {
+      food: 'banana'
+    },
+    meta: {
+      title: '关于'
+    }
   },
   {
     path: '/argu/:name',
     name: 'argu',
-    component: () => import('@/views/argu.vue')
+    component: () => import('@/views/argu.vue'),
+    props: true
   },
   {
     path: '/parent',
@@ -52,5 +73,9 @@ export default [
       // }
       return '/'
     }
+  },
+  {
+    path: '*',
+    component: () => import('@/views/error_404.vue')
   }
 ]

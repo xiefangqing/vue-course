@@ -1,10 +1,18 @@
 <template>
-  <div>{{ $route.params.name }}</div>
+  <div>{{ name }}</div>
 </template>
 
 <script>
 export default {
-  name: 'argu'
+  props: {
+    name: {
+      type: String,
+      default: 'xiaoie'
+    }
+  },
+  beforeRouteUpdate (to, from, next) {
+    // console.log('被调用')
+  }
 }
 </script>
 
