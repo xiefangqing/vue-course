@@ -1,9 +1,11 @@
 <template>
   <div>
-    <!--<xie-input v-model="inputValue"></xie-input>-->
+    <!--<xie-input :value="stateValue" @input="handleInputValueChange"></xie-input>-->
+    <xie-input v-model="stateValue"></xie-input>
+    <p>{{ stateValue }}</p>
     <!--<xie-input :value="inputValue" @input="handleInput"></xie-input>-->
-    <xie-input @input="handleInput"></xie-input>
-    <p>{{ inputValue }} -> last letter: {{ inputValueLastLetter }}</p>
+    <!--<xie-input @input="handleInput"></xie-input>-->
+    <!--<p>{{ inputValue }} -> last letter: {{ inputValueLastLetter }}</p>-->
     <!--<xie-show :content="inputValue"/>-->
     <p>appName: {{ appName }}</p>
     <p>{{ appNameWithVersion }}</p>
@@ -57,7 +59,15 @@ export default {
       userName: state => state.user.userName,
       appVersion: state => state.appVersion,
       todoList: state => state.user.todo ? state.user.todo.todoList : []
-    })
+    }),
+    stateValue: {
+      get () {
+        return this.$store.state.stateValue
+      },
+      set (newValue) {
+        this.SET_STATE_VALUE(newValue)
+      }
+    }
     // ...mapState([
     //   'appName'
     // ]),
@@ -72,7 +82,8 @@ export default {
     ...mapMutations([
       'SET_APP_NAME',
       'SET_APP_VERSION',
-      'SET_USER_NAME'
+      'SET_USER_NAME',
+      'SET_STATE_VALUE'
     ]),
     ...mapActions([
       'updateAppName'
@@ -95,6 +106,9 @@ export default {
       this.SET_APP_VERSION()
     },
     changeUserName () {
+      // 即使在严格模式下，userName的值依旧会被修改为'haha'，只是会提示警告错误
+      // 但这是错误的方式，不要使用
+      // this.$store.state.user.userName = 'haha'
       this.SET_USER_NAME('newUserName')
     },
     registerModule () {
@@ -107,6 +121,10 @@ export default {
         }
         // ...
       })
+    },
+    handleInputValueChange (val) {
+      // val是输入框的内容，不是事件对象
+      this.SET_STATE_VALUE(val)
     }
   }
 }
