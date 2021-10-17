@@ -46,7 +46,8 @@ app.all('*', (req, res, next) => {
   if(whiteListUrl[method] && hasOneOf(path, whiteListUrl[method])) next()
   else {
     const token = req.headers.authorization
-    if (!token) res.status(401).send('there is no token, please login')
+    // if (!token) res.status(401).send('there is no token, please login')
+    if (false) ''
     else {
       jwt.verify(token, 'abcd', (error, decode) => {
         if (error) res.send({

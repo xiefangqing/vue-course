@@ -3,7 +3,8 @@
     <button @click="handleClick('back')">返回上一页</button>
     <button @click="handleClick('push')">跳转到parent</button>
     <button @click="handleClick('replace')">替换到parent</button>
-    <button @click="getInfo">请求数据</button>
+    <button @click="getInfo" :style="{ background: bgColor }">请求数据</button>
+    <img :src="url" alt="">
   </div>
 </template>
 
@@ -22,6 +23,12 @@ export default {
     food: {
       type: String,
       default: 'apple'
+    }
+  },
+  data () {
+    return {
+      url: '',
+      bgColor: ''
     }
   },
   methods: {
@@ -48,11 +55,13 @@ export default {
       }
     },
     getInfo () {
-      // axios.post('/getUserInfo', { userId: 28 }).then(res => {
+      // axios.post('http://localhost:3000/getUserInfo', { userId: 28 }).then(res => {
       //   console.log(res)
       // })
       getUserInfo({ userId: 28 }).then(res => {
-        console.log(res)
+        console.log(res.data)
+        this.url = res.data.img
+        this.bgColor = res.data.color
       })
     }
   },
